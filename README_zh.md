@@ -9,6 +9,8 @@
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
 </p>
 
+\[ [English](README.md) | 中文 \]
+
 # 简介
 自2023年5月发布SoulChat以来，我们经过对真实世界心理咨询语言风格、心理咨询技术等方面的深入探索，在心理咨询师数字孪生建模能力上取得了显著提升。
 
