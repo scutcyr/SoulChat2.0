@@ -70,16 +70,17 @@ $$
 
 
 数据集的下载方式：    
-方式1：
+方式1：使用```git-lfs```
 ```bash
 cd <本项目路径>/data
 git lfs install
 git clone https://www.modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus.git
 ```
 
-方式2：
+方式2：使用```modelscope download```
 ```bash
-cd <本项目路径>/data/PsyDTCorpus
+cd <本项目路径>/data
+mkdir PsyDTCorpus
 modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
 ```
 
@@ -219,3 +220,55 @@ modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
     ]
 }
 ```
+
+## 模型
+### 环境配置
+请参考[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)以及[《LLaMA-Factory QuickStart》](https://zhuanlan.zhihu.com/p/695287607)进行环境配置。
+```bash
+conda create -n llama_factory python=3.10
+conda activate llama_factory
+cd ~
+git clone https://github.com/hiyouga/LLaMA-Factory.git
+cd LLaMA-Factory
+pip install -e '.[torch,metrics]'
+
+其他pip安装命令
+
+```
+
+### 关键包与超参数
+我们在多个基座模型上进行全量参数微调，
+微调的关键包版本依赖如下：
+- Transformers 4.43.0
+- Pytorch 2.3.0+cu121
+- Datasets 2.18.0
+- Tokenizers 0.19.1
+- Llama-Factory 0.8.3.dev0
+
+微调的超参数配置如下：
+- learning_rate: 1e-05
+- train_batch_size: 2
+- eval_batch_size: 1
+- seed: 42
+- distributed_type: multi-GPU
+- num_devices: 8
+- total_train_batch_size: 16
+- total_eval_batch_size: 8
+- optimizer: Adam with betas=(0.9,0.999) and epsilon=1e-08
+- lr_scheduler_type: cosine
+- lr_scheduler_warmup_ratio: 0.03
+- num_epochs: 3.0
+- mixed_precision_training: Native AMP
+
+### 全参数微调
+我们在[./train_model](./train_model)当中提供了全量微调各个基座模型构建心理咨询师数字孪生模型的配置文件，用户在安装了[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)之后，只需要按照上面的数据下载步骤下载数据集，然后下载基座模型参数到本地，修改相应的.yaml当中的字段```model_name_or_path```为基座模型参数在本地的绝对路径，即可通过下列命令进行微调。
+```bash
+cd <本项目路径>
+conda activate llama_factory
+FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
+```
+
+特别地，我们的所有发布的所有心理咨询师数字孪生模型均在8卡A800的服务器上微调得到。
+
+## 评估
+

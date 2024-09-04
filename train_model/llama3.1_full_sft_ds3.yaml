@@ -1,0 +1,41 @@
+### model
+model_name_or_path: LLM-Research/Meta-Llama-3.1-8B-Instruct
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+deepspeed: train_model/deepspeed/ds_z3_config.json
+
+### dataset
+dataset: PsyDTCorpus_train
+template: llama3
+cutoff_len: 32000
+max_samples: 1000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+
+### output
+output_dir: saves/PsyDT/Meta-Llama-3.1-8B-Instruct/full/sft_lr_0.00001
+logging_steps: 10
+save_steps: 100
+plot_loss: true
+overwrite_output_dir: true
+
+### train
+save_only_model: true
+save_total_limit: 20
+per_device_train_batch_size: 2
+gradient_accumulation_steps: 1
+learning_rate: 0.00001
+num_train_epochs: 3.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.03
+fp16: true
+ddp_timeout: 180000000
+
+### eval
+val_size: 0.001
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 100
