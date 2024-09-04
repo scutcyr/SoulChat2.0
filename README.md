@@ -63,10 +63,10 @@ $$
 我们开源了所构建的心理咨询师数字孪生数据（训练集与测试集）：
 * [PsyDTCorpus](https://modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus)：对特定心理咨询师的真实多轮咨询案例，基于5000个单轮咨询样本进行数字孪生数据合成，最终得到5000个具有该咨询师语言风格与疗法技术应用方式的高质量心理健康对话数据。其中4760个样本作为训练集，240个样本被拆分为多个测试样例。数据集总的轮数为：90,365，其中测试集的轮次为：4,311。
 
-|  数据分割 |  文件名   |
-|:------:|:-----------|
-| 训练集  | PsyDTCorpus_train_mulit_turn_packing.json |
-| 测试集  | PsyDTCorpus_test_single_turn_split.json |
+|  数据分割 |  文件名   | 规模 |
+|:------:|:-----------|:------|
+| 训练集  | PsyDTCorpus_train_mulit_turn_packing.json | 4760个对话，总共86054轮，平均每个对话18轮  |
+| 测试集  | PsyDTCorpus_test_single_turn_split.json | 240个对话，总共4311轮，平均每个对话18轮  |
 
 
 数据集的下载方式：    
@@ -83,7 +83,7 @@ cd <本项目路径>/data/PsyDTCorpus
 modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
 ```
 
-**注意：**更多下载方式可以参考modelscope的使用文档[数据集的下载](https://modelscope.cn/docs/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E4%B8%8B%E8%BD%BD)。
+**注意：** 更多下载方式可以参考modelscope的使用文档[数据集的下载](https://modelscope.cn/docs/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E4%B8%8B%E8%BD%BD)。
 
 
 数据样例如下：
