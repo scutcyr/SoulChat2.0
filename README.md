@@ -10,3 +10,17 @@
 </p>
 
 \[ English | [中文](README_zh.md) \]
+
+## Introduction
+Since the release of [SoulChat](https://github.com/scutcyr/SoulChat) in May 2023, we have made significant improvements in the digital twin modeling ability of psychological counselors through in-depth exploration of real-world psychological counseling language styles, psychological counseling techniques, and other aspects.
+
+Since the birth of ChatGPT, a large amount of work has applied the Large Model (LLM) to the fields of emotional accompaniment, mental health support dialogue, and psychological counseling dialogue both domestically and internationally, such as SoulChat, MeChat, QiaoBan, CPsyCoun, MindChat, EmoLLM, and so on. However, previous work has focused on using carefully designed prompt words to construct multiple rounds of mental health dialogue datasets. The fine tuned "mental health big model" can easily lead to homogenization and templating of answers, making it difficult for these LLMs to cope with complex and changing visitors, and unable to simulate the language expression and therapeutic techniques of real psychological counselors in the real world.
+
+In response to the above issues, Guangdong Provincial Key Laboratory of Human Digital Twin, School of Future Technology, South China University of Technology has launched the 
+psychological counselor digital twin model **SoulChat 2.0** based on the SoulChat 1.0 model. SoulChat 2.0 defines the Psychological Consultant Digital Twin (PsyDT) task for specific psychological counselors for the first time :
+
+$$
+r = f_{LLM}(c|C_{N},D_{st},KB_{the.})
+$$
+
+where $c$ denotes the counseling context of a client. $C_{N}$ denotes $N$ real-world counseling cases of specific psychological counselor. $D_{st}$ represents the single-turn mental counseling dialogue dataset, while $KB_{the.}$ signifies the therapeutic strategy knowledge base. 
