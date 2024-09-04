@@ -50,7 +50,7 @@ $$
 
 * 人工评估结果如下：
 <p align="center">
-    <img src="./figure/dataset_eval.png" width=900px/>
+    <img src="./figure/dataset_eval.png" width=600px/>
 </p>
 
 
@@ -279,23 +279,78 @@ FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
 
 | 模型名称 | 下载链接 | 基座模型链接 |
 |:------------|:----------:|:------------|
-| SoulChat2.0-Qwen2-7B    | 等待上传 | [Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct) |
-| SoulChat2.0-internlm2-7b   | 等待上传 | [internlm2-chat-7b](https://www.modelscope.cn/models/Shanghai_AI_Laboratory/internlm2-chat-7b) |
-| SoulChat2.0-Baichuan2-7B    | 等待上传 | [Baichuan2-7B-Chat](https://www.modelscope.cn/models/baichuan-inc/Baichuan2-7B-Chat) |
+| SoulChat2.0-Qwen2-7B    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Qwen2-7B) | [Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct) |
+| SoulChat2.0-internlm2-7b   | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-internlm2-7b) | [internlm2-chat-7b](https://www.modelscope.cn/models/Shanghai_AI_Laboratory/internlm2-chat-7b) |
+| SoulChat2.0-Baichuan2-7B    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Baichuan2-7B) | [Baichuan2-7B-Chat](https://www.modelscope.cn/models/baichuan-inc/Baichuan2-7B-Chat) |
 | SoulChat2.0-Llama-3.1-8B | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B) | [Meta-Llama-3.1-8B-Instruct](https://www.modelscope.cn/models/LLM-Research/Meta-Llama-3.1-8B-Instruct) |
 | SoulChat2.0-Llama-3-8B  | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3-8B) | [Meta-Llama-3-8B-Instruct](https://www.modelscope.cn/models/LLM-Research/Meta-Llama-3-8B-Instruct) |  |
-| SoulChat2.0-Yi-1.5-9B    | 等待上传 | [Yi-1.5-9B-Chat-16K](https://www.modelscope.cn/models/01ai/Yi-1.5-9B-Chat-16K) |
-| SoulChat2.0-glm-4-9b    | 等待上传 | [glm-4-9b-chat](https://www.modelscope.cn/models/ZhipuAI/glm-4-9b-chat) |
+| SoulChat2.0-Yi-1.5-9B    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Yi-1.5-9B) | [Yi-1.5-9B-Chat-16K](https://www.modelscope.cn/models/01ai/Yi-1.5-9B-Chat-16K) |
+| SoulChat2.0-glm-4-9b    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-glm-4-9b) | [glm-4-9b-chat](https://www.modelscope.cn/models/ZhipuAI/glm-4-9b-chat) |
 
 * 模型下载方法请参考[《模型的下载》](https://modelscope.cn/docs/%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%8B%E8%BD%BD)
 
-
+以下为下载示例（以[SoulChat2.0-Llama-3.1-8B](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B)为例）
+方法1：python中snapshot_download下载
+```bash
+#安装ModelScope
+pip install modelscope
+#SDK模型下载
+from modelscope import snapshot_download
+model_dir = snapshot_download('YIRONGCHEN/SoulChat2.0-Llama-3.1-8B')
+```
+方法2：git-lfs下载
+```bash
+cd <基座模型保存路径>
+git lfs install
+git clone https://www.modelscope.cn/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B.git
+```
+方法3：modelscope download命令下载
+```bash
+cd <基座模型保存路径>
+modelscope download --model 'YIRONGCHEN/SoulChat2.0-Llama-3.1-8B' --include '*'
+```
 
 ## 评估
 
 
 
+## 模型应用
+假设你的服务器ip为198.0.0.8
+### vllm推理
+```bash
+SERVER_MODEL_NAME=SoulChat2.0-Llama-3.1-8B
+MODEL_NAME_OR_PATH=<模型本地路径>/SoulChat2.0-Llama-3.1-8B
+GPU_MEMORY_UTILIZATION=0.8
+PORT=8001
+API_KEY=soulchat-rcEmrhVe6zWot67QkJSwqUnNI0EQxxFBMQSAXLtMNsD97PlyGQgjgjW-9jCdQD30
+MAX_MODEL_LEN=20000
+
+python -m vllm.entrypoints.openai.api_server \
+    --served-model-name $SERVER_MODEL_NAME \
+    --model $MODEL_NAME_OR_PATH \
+    --gpu-memory-utilization $GPU_MEMORY_UTILIZATION \
+    --port $PORT \
+    --api-key $API_KEY \
+    --max-model-len $MAX_MODEL_LEN
+```
+
+### streamlit demo搭建
+```bash
+pip install openai==1.7.1
+pip install streamlit==1.27.0
+pip install streamlit_authenticator==0.3.1
+cd infer_demo
+streamlit run soulchat2.0_app.py --server.port 8002
+```
+通过http://<服务器ip>:8002即可访问
+
+
+
+
 ## 限制声明
+- 本项目开源的模型基于开源基座模型微调得到，使用模型权重时，请遵循对应基座模型的模型协议：[Baichuan 2](https://huggingface.co/baichuan-inc/Baichuan2-7B-Base/blob/main/Community%20License%20for%20Baichuan%202%20Model.pdf) / [Yi](https://huggingface.co/01-ai/Yi-6B/blob/main/LICENSE) / [Llama 3](https://llama.meta.com/llama3/license/) / [Qwen](https://github.com/QwenLM/Qwen/blob/main/Tongyi%20Qianwen%20LICENSE%20AGREEMENT) / [GLM-4](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE) / [InternLM2](https://github.com/InternLM/InternLM#license) 
+- 本项目开源的模型仅经过心理咨询师数字孪生数据微调，对于事实性知识，容易产生错误的回复，在代码、推理上的能力可能会下降，请注意模型的使用范围。
+- 尽管我们的模型在心理咨询对话能力方面取得了显著进展，但在安全性和专业性方面仍有提升的空间，模型可能在某些情况下会给出意料之外的回答，本模型仅用于科研用途，使用本模型引起的一切医学风险自负。
 
 
 ## 致谢
