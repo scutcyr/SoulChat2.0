@@ -322,6 +322,8 @@ modelscope download --model 'YIRONGCHEN/SoulChat2.0-Llama-3.1-8B' --include '*'
     <img src="./figure/PsyDT_counseling_example1.png" width=600px/>
 </p>
 
+SoulChat2.0的推出，将为心理健康大模型领域带来新的研究思路：通过少量的真实咨询案例去进行心理咨询师数字孪生建模的方式，可以低成本、快速、高效地构建拥有特定心理咨询师语言风格与疗法技术的心理健康大模型，能很好地辅助真实世界心理咨询师展开心理咨询工作，例如执行这些咨询师的前置谈话，二十四小时的在线服务等等。
+
 ## 模型应用
 假设你的服务器ip为198.0.0.8
 ### vllm推理
