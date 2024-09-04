@@ -40,6 +40,19 @@ $$
     <img src="./figure/therapeutic_radar_chart.png" width=900px/>
 </p>
 
+同时，我们在谈话技术（提问探询、反馈与总结、问题解决和指导）、状态与态度（开放性和价值中立、情感控制）、关系建立、疗法技术应用4个专业维度上对SMILECHAT、SoulChatCorpus、CPsyCounD以及我们建立的PsyDTCorpus进行了比较。
+
+* 专业评价指标如下：
+<p align="center">
+    <img src="./figure/data_eval_dim.png" width=900px/>
+</p>
+
+* 人工评估结果如下：
+<p align="center">
+    <img src="./figure/dataset_eval.png" width=900px/>
+</p>
+
+
 ### （2）心理咨询师数字孪生建模
 
 给定用于心理咨询师数字孪生建模的咨询案例数据，可以通过微调来实现对该咨询师的数字孪生。为了方便研究社区进行对比和复现，我们选用Llama3-8B-Instruct作为基座模型，在SoulChat2.0Corpus的训练集上进行全量微调3个epoches。并且与ChatGPT、GPT-4为代表的闭源模型，Baichuan2-7B-Chat 、GLM4-9B-Chat、Meta-Llama3-8B-Instruct等7个模型为代表的开源模型，以及MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX6个心理健康领域的大模型在PsyDTCorpus的测试集进行自动化对比分析。特别地，我们对MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX以及所提出的SoulChat2.0在**谈话技术**、**状态与态度**、**情感共情**、**认知共情**、**安全性**五个维度进行轮次的对比评估。这7个心理健康大模型在安全性维度上都获得了很高的评分，表明了这些经过微调的领域大模型在安全维度上已经很好地对齐人类目标。在认知共情、会话技术、状态与态度三个维度上，PsyDTLLM相对于其他模型均有较大幅度的提升。这表明了通过心理咨询师数字孪生建模的方式，能很好地提升LLMs的真实心理咨询性能。
