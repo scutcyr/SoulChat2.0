@@ -86,8 +86,7 @@ modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
 
 **注意：** 更多下载方式可以参考modelscope的使用文档[数据集的下载](https://modelscope.cn/docs/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E4%B8%8B%E8%BD%BD)。
 
-
-数据样例如下：
+我们采用了OpenAI格式来构造数据，数据样例如下：
 ```
 {
     "id": 0,
@@ -220,6 +219,11 @@ modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
     ]
 }
 ```
+其中，PsyDTCorpus的数据话题分布如下图所示：
+<p align="center">
+    <img src="./figure/topic_ratio.png" width=600px/>
+</p>
+
 
 ## 模型
 ### 环境配置
@@ -289,3 +293,11 @@ FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
 
 ## 评估
 
+
+
+## 限制声明
+
+
+## 致谢
+* 本项目由华南理工大学未来技术学院、电子与信息学院，广东省数字孪生人实验室，琶洲实验室发起，感谢实验室各位老师的鼎力支持。
+* 本项目基于[hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架微调得到，感谢该项目的诸位作者的付出。
