@@ -1,0 +1,30 @@
+{
+  "PsyDTCorpus_train": {
+      "file_name": "PsyDTCorpus/PsyDTCorpus_train_mulit_turn_packing.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant",
+          "system_tag": "system"
+      }
+  },
+  "PsyDTCorpus_test": {
+      "file_name": "PsyDTCorpus/PsyDTCorpus_test_single_turn_split.json",
+      "formatting": "sharegpt",
+      "columns": {
+          "messages": "messages"
+      },
+      "tags": {
+          "role_tag": "role",
+          "content_tag": "content",
+          "user_tag": "user",
+          "assistant_tag": "assistant",
+          "system_tag": "system"
+      }
+  }
+}
