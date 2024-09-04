@@ -270,5 +270,22 @@ FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
 
 特别地，我们的所有发布的所有心理咨询师数字孪生模型均在8卡A800的服务器上微调得到。
 
+### 模型开源
+为了方便心理健康对话研究社区的进一步研究，我们计划开源一系列经过全量参数微调之后的心理咨询师数字孪生模型，如下表：
+
+| 模型名称 | 下载链接 | 基座模型链接 |
+|:------------|:----------:|:------------|
+| SoulChat2.0-Qwen2-7B    | 等待上传 | [Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct) |
+| SoulChat2.0-internlm2-7b   | 等待上传 | [internlm2-chat-7b](https://www.modelscope.cn/models/Shanghai_AI_Laboratory/internlm2-chat-7b) |
+| SoulChat2.0-Baichuan2-7B    | 等待上传 | [Baichuan2-7B-Chat](https://www.modelscope.cn/models/baichuan-inc/Baichuan2-7B-Chat) |
+| SoulChat2.0-Llama-3.1-8B | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B) | [Meta-Llama-3.1-8B-Instruct](https://www.modelscope.cn/models/LLM-Research/Meta-Llama-3.1-8B-Instruct) |
+| SoulChat2.0-Llama-3-8B  | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3-8B) | [Meta-Llama-3-8B-Instruct](https://www.modelscope.cn/models/LLM-Research/Meta-Llama-3-8B-Instruct) |  |
+| SoulChat2.0-Yi-1.5-9B    | 等待上传 | [Yi-1.5-9B-Chat-16K](https://www.modelscope.cn/models/01ai/Yi-1.5-9B-Chat-16K) |
+| SoulChat2.0-glm-4-9b    | 等待上传 | [glm-4-9b-chat](https://www.modelscope.cn/models/ZhipuAI/glm-4-9b-chat) |
+
+* 模型下载方法请参考[《模型的下载》](https://modelscope.cn/docs/%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%8B%E8%BD%BD)
+
+
+
 ## 评估
 
