@@ -16,7 +16,7 @@
 
 ChatGPT诞生以来，国内外已有大量的工作将大模型（LLM）应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作聚焦于借助精心设计的提示词来构建多轮心理健康对话数据集，微调出的“心理健康大模型”很容易造成回答的同质化、模板化，使得这些LLMs难以应对复杂多变的来访者，无法很好模拟现实世界真实心理咨询师的语言表达与疗法技术运用风格。
 
-针对上述问题，华南理工大学未来技术学院-广东省数字孪生人实验室在灵心大模型（SoulChat1.0）基础上，推出了心理咨询师数字孪生大模型SoulChat2.0。SoulChat2.0首次定义了特定心理咨询师的数字孪生（PsyDT, Psychological consultant Digital Twin）任务：
+针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，推出了心理咨询师数字孪生大模型SoulChat2.0。SoulChat2.0首次定义了特定心理咨询师的数字孪生（PsyDT, Psychological consultant Digital Twin）任务：
 
 $$
 r = f_{LLM}(c|C_{N},D_{st},KB_{the.})
