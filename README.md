@@ -1,5 +1,6 @@
 # [心理咨询师数字孪生（SoulChat2.0）](https://github.com/scutcyr/SoulChat2.0)
 <p align="center">
+    <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg"></a>
     <a href="support os"><img src="https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg"></a>
     <a href=""><img src="https://img.shields.io/badge/python-3.8+-aff.svg"></a>
@@ -7,40 +8,37 @@
     <a href="https://github.com/scutcyr/SoulChat2.0/commits"><img src="https://img.shields.io/github/commit-activity/m/scutcyr/SoulChat2.0?color=3af"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/issues"><img src="https://img.shields.io/github/issues/scutcyr/SoulChat2.0?color=9cc"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
-    <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
 </p>
 
 \[ [English](README_en.md) | 中文 \]
 
+## 最近更新
+- 👏🏻  2024.12.19：欢迎大家关注我们的工作：[arxiv](https://arxiv.org/pdf/2412.13660)
+
 ## 简介
-自2023年5月发布[SoulChat](https://github.com/scutcyr/SoulChat)以来，我们经过对真实世界心理咨询语言风格、心理咨询技术等方面的深入探索，在心理咨询师数字孪生建模能力上取得了显著提升。
+自2023年5月发布[SoulChat](https://github.com/scutcyr/SoulChat)以来，我们经过对真实世界心理咨询语言风格、疗法技术等方面的深入探索，在心理咨询师数字孪生建模能力上取得了显著提升。
 
-ChatGPT诞生以来，国内外已有大量的工作将大模型（LLM）应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作没有充分考虑到不同的心理咨询师具有不同的个人风格，包括语言风格和疗法风格等等，从而导致微调好的心理健康LLMs难以满足来访者对于不同咨询风格咨询师的个人需求。此外，将不同咨询风格的多轮对话数据进行混合微调LLM容易造成回复的的不稳定性。
+自从ChatGPT诞生以来，国内外已有大量的工作将大语言模型应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作没有充分考虑到不同的心理咨询师具有不同的个人风格，包括语言风格和疗法风格等等，从而导致微调好的心理健康LLMs难以满足来访者对于不同咨询风格咨询师的个人需求。此外，将不同咨询风格的多轮对话数据进行混合微调容易造成LLM回复的的不稳定。
 
-针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，推出了心理咨询师数字孪生大模型SoulChat2.0。SoulChat2.0首次定义了心理咨询师的数字孪生（PsyDT, Psychological conselor's Digital Twin）任务：
-$$
-r = f_{LLM}(c|C_{N},D_{st},KB_{the.})
-$$
-其中 $c$ 表示咨询对话历史。 $C_{N}$ 表示 $N$ 个真实世界咨询师的咨询案例。 $D_{st}$ 表示用于构建大规模数字孪生数据的单轮咨询案例（来自互联网或者虚构的）。 $KB_{the.}$ 表示心理咨询技术知识库。
+针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，首次推出了心理咨询师数字孪生大语言模型SoulChat2.0。
 
 ## 数据构造与模型建立
-如下图所示，心理咨询师数字孪生大模型SoulChat2.0包含2个部分：（1）心理咨询师数字孪生数据生成；（2）心理咨询师数字孪生建模。
+如下图所示，心理咨询师数字孪生大语言模型SoulChat2.0包含2个部分：（1）心理咨询师数字孪生数据生成；（2）心理咨询师数字孪生建模。
 
 <p align="center">
-    <img src="./figure/multi_turn_dialogue_generation_framework.png" width=900px/>
+    <img src="./figure/PsyDT_framework.png" width=900px/>
 </p>
 
 ### （1）心理咨询师数字孪生数据生成
-
 要实现特定的心理咨询师的数字孪生，前提是能获取该心理咨询师的大量咨询案例，但是这对于心理咨询师个体而言，难度极大。一方面，需要考虑心理咨询的伦理要求和隐私保护，另一方面，数据的采集也非常繁琐。为此，有必要建立一种仅需少量咨询案例的心理咨询师数字孪生数据生成框架。心理咨询师的每个咨询案例都体现了本人的语言风格与咨询技术应用方式，这可以借助于现有的先进的LLMs的语言总结能力去提取。同时，为了保证生成的数据的多样性，需要尽可能建模用户的个性特质，我们以常用的大五人格为参考，对单轮对话咨询数据库中的来访者进行了大五人格分析。通过综合真实世界咨询师的语言风格、咨询技术、来访者大五人格，结合真实世界咨询案例，对于单轮对话进行心理咨询师数字孪生数据生成。采取我们的框架生成的多轮对话数据，能有效表征特定心理咨询师的语言风格与咨询技术应用方式。为了综合考虑成本与效果，我们设定了用于心理咨询师数字孪生数据生成的单轮对话咨询数据库的规模为5000个，特定心理咨询师的咨询案例数目设定为12个（为保证低成本，一般不多于20个）。最终，只需要给定任意心理咨询师的少量咨询案例，我们的框架即可快速生成批量用于该心理咨询师数字孪生建模的咨询案例。
 
-我们进行人工评估发现，相比于Smile和SoulChat1.0，SoulChat2.0提出的数据生成方法（PsyDT_Prompt），几乎在所有话题上都能很好地构建高质量的数字孪生数据。
+利用LLMs对三种合成的对话数据与真实案例的相似度进行评估对比。相比于Smile和SoulChat1.0，SoulChat2.0提出的数据生成方法（PsyDT_Prompt），在所有话题上都能很好地构建高质量的数字孪生数据。
 
 <p align="center">
-    <img src="./figure/therapeutic_radar_chart.png" width=600px/>
+    <img src="./figure/therapy_technique_similarity_result.png" width=600px/>
 </p>
 
-同时，我们在谈话技术（提问探询、反馈与总结、问题解决和指导）、状态与态度（开放性和价值中立、情感控制）、关系建立、疗法技术应用4个专业维度上对SMILECHAT、SoulChatCorpus、CPsyCounD以及我们建立的PsyDTCorpus进行了比较。如下图所示，结果表明所提出的心理咨询师数字孪生数据生成方法能有效提升数据集的谈话技术、状态与态度、关系建立、疗法技术几方面的得分。
+同时，我们在谈话技术（提问探询、反馈与总结、问题解决和指导）、状态与态度（开放性和价值中立、情感控制）、关系建立、疗法技术应用这4个专业维度上对SMILECHAT、SoulChatCorpus、CPsyCounD以及我们建立的PsyDTCorpus进行了比较。如下图所示，结果表明所提出的心理咨询师数字孪生数据生成方法能有效提升数据集的谈话技术、状态与态度、关系建立、疗法技术几方面的得分。
 
 * 专业评价指标如下：
 <p align="center">
@@ -52,11 +50,15 @@ $$
     <img src="./figure/dataset_eval.png" width=900px/>
 </p>
 
-
 ### （2）心理咨询师数字孪生建模
+给定用于心理咨询师数字孪生建模的咨询案例数据PsydtCorpus，可以通过微调来实现对该咨询师的数字孪生。为了方便研究社区进行对比和复现，我们选用Qwen2-7b-Instruct作为基座模型，在PsyDTCorpus的训练集上进行全量微调3个epoches。并且与ChatGPT、GPT-4为代表的闭源模型，Baichuan2-7B-Chat 、GLM4-9B-Chat、Meta-Llama3-8B-Instruct等7个模型为代表的开源模型，以及MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX6个心理健康领域的大模型在PsyDTCorpus的测试集进行自动化对比分析。我们的模型在所有的维度上都取得了较好的结果。这表明了通过心理咨询师数字孪生建模的方式，能很好地提升LLMs的真实心理咨询性能。
 
-给定用于心理咨询师数字孪生建模的咨询案例数据，可以通过微调来实现对该咨询师的数字孪生。为了方便研究社区进行对比和复现，我们选用Llama3-8B-Instruct作为基座模型，在SoulChat2.0Corpus的训练集上进行全量微调3个epoches。并且与ChatGPT、GPT-4为代表的闭源模型，Baichuan2-7B-Chat 、GLM4-9B-Chat、Meta-Llama3-8B-Instruct等7个模型为代表的开源模型，以及MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX6个心理健康领域的大模型在PsyDTCorpus的测试集进行自动化对比分析。特别地，我们对MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX以及所提出的SoulChat2.0在**谈话技术**、**状态与态度**、**情感共情**、**认知共情**、**安全性**五个维度进行轮次的对比评估。这7个心理健康大模型在安全性维度上都获得了很高的评分，表明了这些经过微调的领域大模型在安全维度上已经很好地对齐人类目标。在认知共情、会话技术、状态与态度三个维度上，PsyDTLLM相对于其他模型均有较大幅度的提升。这表明了通过心理咨询师数字孪生建模的方式，能很好地提升LLMs的真实心理咨询性能。
+一个简短的对话案例如下所示：
+<p align="center">
+    <img src="./figure/PsyDT_counseling_example1.png" width=600px/>
+</p>
 
+SoulChat2.0的推出，将为心理健康大模型领域带来新的研究思路：通过少量的真实咨询案例去进行心理咨询师数字孪生建模的方式，可以低成本、快速、高效地构建拥有特定心理咨询师语言风格与疗法技术的心理健康大模型，能很好地辅助真实世界心理咨询师展开心理咨询工作，例如执行这些咨询师的前置谈话，二十四小时的在线服务等等。
 
 ## 数据
 我们开源了所构建的心理咨询师数字孪生数据（训练集与测试集）：
@@ -67,7 +69,6 @@ $$
 | 训练集  | PsyDTCorpus_train_mulit_turn_packing.json | 4760个对话，总共86054轮，平均每个对话18轮  |
 | 测试集  | PsyDTCorpus_test_single_turn_split.json | 240个对话，总共4311轮，平均每个对话18轮  |
 
-
 数据集的下载方式：    
 方式1：使用```git-lfs```
 ```bash
@@ -75,7 +76,6 @@ cd <本项目路径>/data
 git lfs install
 git clone https://www.modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus.git
 ```
-
 方式2：使用```modelscope download```
 ```bash
 cd <本项目路径>/data
@@ -223,7 +223,6 @@ modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
     <img src="./figure/topic_ratio.png" width=600px/>
 </p>
 
-
 ## 模型
 ### 环境配置
 请参考[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)以及[《LLaMA-Factory QuickStart》](https://zhuanlan.zhihu.com/p/695287607)进行环境配置。
@@ -309,20 +308,6 @@ cd <基座模型保存路径>
 modelscope download --model 'YIRONGCHEN/SoulChat2.0-Llama-3.1-8B' --include '*'
 ```
 
-## 评估
-给定用于心理咨询师数字孪生建模的咨询案例数据，可以通过微调来实现对该咨询师的数字孪生。为了方便研究社区进行对比和复现，我们选用Llama3-8B-Instruct作为基座模型，在SoulChat2.0Corpus的训练集上进行全量微调3个epoches。并且与ChatGPT、GPT-4为代表的闭源模型，Baichuan2-7B-Chat 、GLM4-9B-Chat、Meta-Llama3-8B-Instruct等7个模型为代表的开源模型，以及MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX6个心理健康领域的大模型在PsyDTCorpus的测试集进行自动化对比分析。特别地，我们对MeChat、PsyChat、SoulChat1.0、MindChat、EmoLLM、CPsyCounX以及所提出的SoulChat2.0在谈话技术、状态与态度、情感共情、认知共情、安全性五个维度进行轮次的对比评估。这7个心理健康大模型在安全性维度上都获得了很高的评分，表明了这些经过微调的领域大模型在安全维度上已经很好地对齐人类目标。在认知共情、会话技术、状态与态度三个维度上，PsyDTLLM相对于其他模型均有较大幅度的提升。这表明了通过心理咨询师数字孪生建模的方式，能很好地提升LLMs的真实心理咨询性能。
-
-<p align="center">
-    <img src="./figure/model_professional_evaluation_radar_chart.png" width=600px/>
-</p>
-
-一个简短的对话案例如下所示：
-<p align="center">
-    <img src="./figure/PsyDT_counseling_example1.png" width=600px/>
-</p>
-
-SoulChat2.0的推出，将为心理健康大模型领域带来新的研究思路：通过少量的真实咨询案例去进行心理咨询师数字孪生建模的方式，可以低成本、快速、高效地构建拥有特定心理咨询师语言风格与疗法技术的心理健康大模型，能很好地辅助真实世界心理咨询师展开心理咨询工作，例如执行这些咨询师的前置谈话，二十四小时的在线服务等等。
-
 ## 模型应用
 假设你的服务器ip为198.0.0.8
 ### vllm推理
@@ -359,11 +344,11 @@ streamlit run soulchat2.0_app.py --server.port 8002
 - 尽管我们的模型在心理咨询对话能力方面取得了显著进展，但在安全性和专业性方面仍有提升的空间，模型可能在某些情况下会给出意料之外的回答，本模型仅用于科研用途，使用本模型引起的一切医学风险自负。
 
 ## 致谢
-* 本项目由华南理工大学未来技术学院，电子与信息学院，广东省数字孪生人重点实验室，琶洲实验室发起，感谢实验室各位老师的鼎力支持。
-* 本项目基于[hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架微调得到，感谢该项目的诸位作者的付出。
+- 本项目由华南理工大学未来技术学院，电子与信息学院，广东省数字孪生人重点实验室，琶洲实验室发起，感谢实验室各位老师的鼎力支持。
+- 本项目基于[hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架微调得到，感谢该项目的诸位作者的付出。
 
 ## 引用
-```
+```bibtex
 @misc{xie2024psydtusingllmsconstruct,
       title={PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling}, 
       author={Haojie Xie and Yirong Chen and Xiaofen Xing and Jingkai Lin and Xiangmin Xu},
