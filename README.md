@@ -7,6 +7,7 @@
     <a href="https://github.com/scutcyr/SoulChat2.0/commits"><img src="https://img.shields.io/github/commit-activity/m/scutcyr/SoulChat2.0?color=3af"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/issues"><img src="https://img.shields.io/github/issues/scutcyr/SoulChat2.0?color=9cc"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
+    <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
 </p>
 
 \[ [English](README_en.md) | 中文 \]
@@ -14,14 +15,12 @@
 ## 简介
 自2023年5月发布[SoulChat](https://github.com/scutcyr/SoulChat)以来，我们经过对真实世界心理咨询语言风格、心理咨询技术等方面的深入探索，在心理咨询师数字孪生建模能力上取得了显著提升。
 
-ChatGPT诞生以来，国内外已有大量的工作将大模型（LLM）应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作聚焦于借助精心设计的提示词来构建多轮心理健康对话数据集，微调出的“心理健康大模型”很容易造成回答的同质化、模板化，使得这些LLMs难以应对复杂多变的来访者，无法很好模拟现实世界真实心理咨询师的语言表达与疗法技术运用风格。
+ChatGPT诞生以来，国内外已有大量的工作将大模型（LLM）应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作没有充分考虑到不同的心理咨询师具有不同的个人风格，包括语言风格和疗法风格等等，从而导致微调好的心理健康LLMs难以满足来访者对于不同咨询风格咨询师的个人需求。此外，将不同咨询风格的多轮对话数据进行混合微调LLM容易造成回复的的不稳定性。
 
-针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，推出了心理咨询师数字孪生大模型SoulChat2.0。SoulChat2.0首次定义了特定心理咨询师的数字孪生（PsyDT, Psychological consultant Digital Twin）任务：
-
+针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，推出了心理咨询师数字孪生大模型SoulChat2.0。SoulChat2.0首次定义了心理咨询师的数字孪生（PsyDT, Psychological conselor's Digital Twin）任务：
 $$
 r = f_{LLM}(c|C_{N},D_{st},KB_{the.})
 $$
-
 其中 $c$ 表示咨询对话历史。 $C_{N}$ 表示 $N$ 个真实世界咨询师的咨询案例。 $D_{st}$ 表示用于构建大规模数字孪生数据的单轮咨询案例（来自互联网或者虚构的）。 $KB_{the.}$ 表示心理咨询技术知识库。
 
 ## 数据构造与模型建立
@@ -354,15 +353,24 @@ streamlit run soulchat2.0_app.py --server.port 8002
 ```
 通过http://<服务器ip>:8002即可访问。
 
-
-
-
 ## 限制声明
 - 本项目开源的模型基于开源基座模型微调得到，使用模型权重时，请遵循对应基座模型的模型协议：[Baichuan 2](https://huggingface.co/baichuan-inc/Baichuan2-7B-Base/blob/main/Community%20License%20for%20Baichuan%202%20Model.pdf) / [Yi](https://huggingface.co/01-ai/Yi-6B/blob/main/LICENSE) / [Llama 3](https://llama.meta.com/llama3/license/) / [Qwen](https://github.com/QwenLM/Qwen/blob/main/Tongyi%20Qianwen%20LICENSE%20AGREEMENT) / [GLM-4](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE) / [InternLM2](https://github.com/InternLM/InternLM#license) 
 - 本项目开源的模型仅经过心理咨询师数字孪生数据微调，对于事实性知识，容易产生错误的回复，在代码、推理上的能力可能会下降，请注意模型的使用范围。
 - 尽管我们的模型在心理咨询对话能力方面取得了显著进展，但在安全性和专业性方面仍有提升的空间，模型可能在某些情况下会给出意料之外的回答，本模型仅用于科研用途，使用本模型引起的一切医学风险自负。
 
-
 ## 致谢
-* 本项目由华南理工大学未来技术学院、电子与信息学院，广东省数字孪生人实验室，琶洲实验室发起，感谢实验室各位老师的鼎力支持。
+* 本项目由华南理工大学未来技术学院，电子与信息学院，广东省数字孪生人重点实验室，琶洲实验室发起，感谢实验室各位老师的鼎力支持。
 * 本项目基于[hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架微调得到，感谢该项目的诸位作者的付出。
+
+## 引用
+```
+@misc{xie2024psydtusingllmsconstruct,
+      title={PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling}, 
+      author={Haojie Xie and Yirong Chen and Xiaofen Xing and Jingkai Lin and Xiangmin Xu},
+      year={2024},
+      eprint={2412.13660},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2412.13660}, 
+}
+```
