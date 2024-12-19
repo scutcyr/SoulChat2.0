@@ -3,7 +3,6 @@
     <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg"></a>
     <a href="support os"><img src="https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg"></a>
-    <a href=""><img src="https://img.shields.io/badge/python-3.8+-aff.svg"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/graphs/contributors"><img src="https://img.shields.io/github/contributors/scutcyr/SoulChat2.0?color=9ea"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/commits"><img src="https://img.shields.io/github/commit-activity/m/scutcyr/SoulChat2.0?color=3af"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/issues"><img src="https://img.shields.io/github/issues/scutcyr/SoulChat2.0?color=9cc"></a>
@@ -13,12 +12,12 @@
 \[ [English](README_en.md) | 中文 \]
 
 ## 最近更新
-- 👏🏻  2024.12.19：欢迎大家关注我们的工作：[arxiv](https://arxiv.org/pdf/2412.13660)
+- 👏🏻  2024.12.19：欢迎大家关注我们的工作：[PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://arxiv.org/pdf/2412.13660)
 
 ## 简介
 自2023年5月发布[SoulChat](https://github.com/scutcyr/SoulChat)以来，我们经过对真实世界心理咨询语言风格、疗法技术等方面的深入探索，在心理咨询师数字孪生建模能力上取得了显著提升。
 
-自从ChatGPT诞生以来，国内外已有大量的工作将大语言模型应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作没有充分考虑到不同的心理咨询师具有不同的个人风格，包括语言风格和疗法风格等等，从而导致微调好的心理健康LLMs难以满足来访者对于不同咨询风格咨询师的个人需求。此外，将不同咨询风格的多轮对话数据进行混合微调容易造成LLM回复的的不稳定。
+自从ChatGPT诞生以来，国内外已有大量的工作将大语言模型应用于情感陪护、心理健康支持对话、心理咨询对话领域，例如SoulChat、MeChat、QiaoBan、CPsyCoun、MindChat、EmoLLM等等。然而，过往的工作没有充分考虑到不同的心理咨询师具有不同的个人风格，包括语言风格和疗法风格等等，从而导致微调好的心理健康LLMs难以满足来访者对于不同咨询风格咨询师的个人需求。此外，将不同咨询风格的多轮对话数据进行混合微调容易造成LLM回复的不稳定。
 
 针对上述问题，华南理工大学未来技术学院-广东省数字孪生人重点实验室在灵心大模型（SoulChat1.0）基础上，首次推出了心理咨询师数字孪生大语言模型SoulChat2.0。
 
