@@ -12,6 +12,7 @@
 \[ [English](README_en.md) | 中文 \]
 
 ## 最近更新
+- 👏🏻  2025.05.16：祝贺！我们的论文已经成功被ACL 2025 主会接收！🎉
 - 👏🏻  2024.12.19：欢迎大家关注我们的工作：[PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://arxiv.org/pdf/2412.13660)
 
 ## 简介
