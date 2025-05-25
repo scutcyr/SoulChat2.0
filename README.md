@@ -288,6 +288,7 @@ FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
 * 模型下载方法请参考[《模型的下载》](https://modelscope.cn/docs/%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%8B%E8%BD%BD)
 
 以下为下载示例（以[SoulChat2.0-Llama-3.1-8B](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B)为例）
+
 方法1：python中snapshot_download下载
 ```bash
 #安装ModelScope
