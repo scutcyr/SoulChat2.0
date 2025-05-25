@@ -9,7 +9,7 @@
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
 </p>
 
-\[ [English](README_en.md) | 中文 \]
+\[ English | [中文](README.md) \]
 
 ## Recent Updates
 - 👏🏻 2025.05.16: Congratulations! Our paper has been accepted by ACL 2025 Main Conference! 🎉
