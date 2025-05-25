@@ -1,27 +1,280 @@
-# [Psychological Counselor's Digital Twin（SoulChat2.0）](https://github.com/scutcyr/SoulChat2.0)
+# [Psychological Counselor's Digital Twin(SoulChat2.0)](https://github.com/scutcyr/SoulChat2.0)
 <p align="center">
     <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg"></a>
     <a href="support os"><img src="https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg"></a>
-    <a href=""><img src="https://img.shields.io/badge/python-3.8+-aff.svg"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/graphs/contributors"><img src="https://img.shields.io/github/contributors/scutcyr/SoulChat2.0?color=9ea"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/commits"><img src="https://img.shields.io/github/commit-activity/m/scutcyr/SoulChat2.0?color=3af"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/issues"><img src="https://img.shields.io/github/issues/scutcyr/SoulChat2.0?color=9cc"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
 </p>
 
-\[ English | [中文](README.md) \]
+\[ [English](README_en.md) | 中文 \]
 
-## News
-- 👏🏻  2024.12.19: Our paper has released on the arXiv: [PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://arxiv.org/pdf/2412.13660)
+## Recent Updates
+- 👏🏻 2025.05.16: Congratulations! Our paper has been accepted by ACL 2025 Main Conference! 🎉
+- 👏🏻 2024.12.19: Welcome to check out our work: [PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://arxiv.org/pdf/2412.13660)
 
-## Data Download
-* [PsyDTCorpus](https://modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus)
+## Introduction
+Since the release of [SoulChat](https://github.com/scutcyr/SoulChat) in May 2023, we have made significant improvements in digital twin modeling capabilities for psychological counselors through in-depth exploration of real-world counseling language styles and therapeutic techniques.
 
-## Model Download
-In order to facilitate further research in the mental health dialogue research community, we plan to open source a series of psychological counselor digital twin models that have undergone full parameter fine-tuning, as shown in the table below：
+Since the advent of ChatGPT, numerous works have applied large language models to emotional companionship, mental health support dialogues, and psychological counseling domains, such as SoulChat, MeChat, QiaoBan, CPsyCoun, MindChat, EmoLLM, etc. However, previous works have not fully considered that different counselors have distinct personal styles, including language styles and therapeutic approaches, making it difficult for fine-tuned mental health LLMs to meet clients' needs for counselors with different counseling styles. Additionally, mixed fine-tuning of multi-turn dialogue data with different counseling styles can easily lead to unstable responses from LLMs.
 
-| Models | Download Link | Foundation Model Download Link |
+To address these issues, the Guangdong Provincial Key Laboratory of Human Digital Twins at the School of Future Technology, South China University of Technology, has launched SoulChat2.0, the first digital twin large language model for psychological counselors, based on the SoulChat1.0 model.
+
+## Data Construction and Model Development
+As shown below, the digital twin large language model for psychological counselors, SoulChat2.0, consists of two parts: (1) Digital twin data generation for psychological counselors, and (2) Digital twin modeling for psychological counselors.
+
+<p align="center">
+    <img src="./figure/PsyDT_framework.png" width=900px/>
+</p>
+
+### (1) Digital Twin Data Generation for Psychological Counselors
+To achieve a digital twin of a specific psychological counselor, it is essential to obtain a large number of counseling cases from that counselor. However, this is extremely difficult for individual counselors. On one hand, ethical requirements and privacy protection in psychological counseling must be considered; on the other hand, data collection is also very cumbersome. Therefore, it is necessary to establish a framework for generating digital twin data for psychological counselors that requires only a small number of counseling cases. Each counseling case from a counselor reflects their language style and application of counseling techniques, which can be extracted using the language summarization capabilities of existing advanced LLMs. Meanwhile, to ensure the diversity of generated data, it is necessary to model the personality traits of users. We reference the commonly used Big Five personality traits to analyze the clients in single-turn dialogue counseling databases. By integrating the language style, counseling techniques, and client Big Five personality traits from real-world counselors, along with real-world counseling cases, we generate digital twin data for psychological counselors from single-turn dialogues. The multi-turn dialogue data generated by our framework effectively represents the language style and application of counseling techniques of specific psychological counselors. To balance cost and effectiveness, we set the scale of the single-turn dialogue counseling database for generating digital twin data at 5,000, and the number of counseling cases for a specific counselor at 12 (generally no more than 20 to ensure low cost). Ultimately, given a small number of counseling cases from any psychological counselor, our framework can quickly generate a batch of counseling cases for digital twin modeling of that counselor.
+
+We used LLMs to evaluate and compare the similarity of three types of synthesized dialogue data with real cases. Compared to Smile and SoulChat1.0, the data generation method proposed by SoulChat2.0 (PsyDT_Prompt) can effectively construct high-quality digital twin data across all topics.
+
+<p align="center">
+    <img src="./figure/therapy_technique_similarity_result.png" width=600px/>
+</p>
+
+At the same time, we compared SMILECHAT, SoulChatCorpus, CPsyCounD, and our PsyDTCorpus across four professional dimensions: conversation techniques (questioning and inquiry, feedback and summarization, problem-solving, and guidance), state and attitude (openness and value neutrality, emotional control), relationship building, and application of therapeutic techniques. The results, as shown below, indicate that the proposed digital twin data generation method for psychological counselors can effectively improve the scores of datasets in conversation techniques, state and attitude, relationship building, and therapeutic techniques.
+
+* Professional evaluation metrics are as follows:
+<p align="center">
+    <img src="./figure/data_eval_dim.png" width=900px/>
+</p>
+
+* Human evaluation results are as follows:
+<p align="center">
+    <img src="./figure/dataset_eval.png" width=900px/>
+</p>
+
+### (2) Digital Twin Modeling for Psychological Counselors
+Given the counseling case data PsydtCorpus for digital twin modeling of psychological counselors, fine-tuning can be performed to achieve the digital twin of that counselor. To facilitate comparison and replication by the research community, we selected Qwen2-7b-Instruct as the base model and performed full fine-tuning for 3 epochs on the training set of PsyDTCorpus. We conducted automated comparative analyses with closed-source models represented by ChatGPT and GPT-4, open-source models represented by Baichuan2-7B-Chat, GLM4-9B-Chat, Meta-Llama3-8B-Instruct, and 6 large models in the mental health domain, including MeChat, PsyChat, SoulChat1.0, MindChat, EmoLLM, and CPsyCounX, on the test set of PsyDTCorpus. Our model achieved excellent results across all dimensions. This demonstrates that the digital twin modeling approach for psychological counselors can significantly enhance the real-world counseling performance of LLMs.
+
+A brief example dialogue is shown below:
+<p align="center">
+    <img src="./figure/PsyDT_counseling_example1.png" width=600px/>
+</p>
+
+The launch of SoulChat2.0 will bring new research ideas to the field of large mental health models: the approach of digital twin modeling for psychological counselors using a small number of real counseling cases can low-cost, rapidly, and efficiently construct large mental health models with specific psychological counselors' language styles and therapeutic techniques, effectively assisting real-world psychological counselors in their work, such as conducting preliminary conversations and providing 24/7 online services.
+
+## Data
+We have open-sourced the constructed digital twin data for psychological counselors (training and test sets):
+* [PsyDTCorpus](https://modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus): For specific psychological counselors' real multi-turn counseling cases, we synthesized digital twin data based on 5,000 single-turn counseling samples, ultimately obtaining 5,000 high-quality mental health dialogue data with the counselor's language style and application of therapeutic techniques. Among these, 4,760 samples were used as the training set, and 240 samples were split into multiple test cases. The total number of turns in the dataset is 90,365, with 4,311 turns in the test set.
+
+| Data Split | File Name | Scale |
+|:------:|:-----------|:------|
+| Training Set | PsyDTCorpus_train_mulit_turn_packing.json | 4,760 dialogues, totaling 86,054 turns, averaging 18 turns per dialogue |
+| Test Set | PsyDTCorpus_test_single_turn_split.json | 240 dialogues, totaling 4,311 turns, averaging 18 turns per dialogue |
+
+Dataset download methods:    
+Method 1: Use ```git-lfs```
+```bash
+cd <project path>/data
+git lfs install
+git clone https://www.modelscope.cn/datasets/YIRONGCHEN/PsyDTCorpus.git
+```
+Method 2: Use ```modelscope download```
+```bash
+cd <project path>/data
+mkdir PsyDTCorpus
+modelscope download --dataset 'YIRONGCHEN/PsyDTCorpus' --include '*'
+```
+
+**Note:** For more download methods, please refer to the Modelscope documentation [Dataset Download](https://modelscope.cn/docs/%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E4%B8%8B%E8%BD%BD).
+
+We adopted the OpenAI format to construct the data. A data sample is as follows:
+```
+{
+    "id": 0,
+    "normalizedTag": "Romance",
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are a psychological counselor proficient in Rational Emotive Behavior Therapy (REBT), capable of reasonably applying REBT to provide professional guidance and support to clients, alleviating their negative emotions and behavioral reactions, and helping them achieve personal growth and mental health. REBT mainly includes the following stages. Below is a list of dialogue stages, briefly describing the focus of each stage.\n(1) **Examining Irrational Beliefs and Self-Defeating Thoughts**: REBT views cognitive intervention as the 'life' of therapy. Therefore, almost from the beginning of therapy, during the problem exploration stage, the counselor actively and persuasively helps the client explore the reasons behind emotional distress, including the client's thought logic in understanding events and the antecedents and consequences of emotions, thereby clarifying the issues. The counselor firmly motivates the client to reflect on what they 'say' to themselves after encountering triggering events and before feeling anxious, depressed, or angry.\n(2) **Debating Irrational Beliefs**: The counselor uses various techniques (mainly cognitive techniques) to help the client challenge irrational beliefs and thoughts, demonstrating their unrealistic and unreasonable aspects, recognizing their harm, and thereby generating the desire and behavior to abandon these irrational beliefs.\n(3) **Deriving Rational Beliefs and Learning Rational Thinking**: Based on identifying and refuting irrational beliefs, the counselor further induces and helps the client find appropriate, rational responses to triggering situations and events, identifying rational beliefs and realistic, problem-solving oriented thought statements to replace irrational beliefs and self-defeating thoughts. To consolidate rational beliefs, the counselor repeatedly teaches and demonstrates to the client why rational beliefs are reasonable, how they differ from irrational beliefs, why irrational beliefs lead to emotional dysregulation, and why rational beliefs lead to more positive and healthy outcomes.\n(4) **Transferring and Applying Therapeutic Gains**: The counselor actively encourages the client to internalize the objective and realistic attitudes and scientific, reasonable thinking methods learned during therapy as personal life attitudes, and to persistently apply the teachings of REBT to solve new problems in the future."
+        },
+        {
+            "role": "user",
+            "content": "Good evening, I've been feeling a bit upset lately, and my boyfriend's behavior has been troubling me."
+        },
+        {
+            "role": "assistant",
+            "content": "Good evening, I'm here to listen to everything you'd like to share. Could you tell me more specifically what's been troubling you?"
+        },
+        {
+            "role": "user",
+            "content": "My boyfriend and I have been together for 4 years, but he has always refused to let me manage his salary card, which makes me feel very uneasy."
+        },
+        {
+            "role": "assistant",
+            "content": "This issue seems very important to you and has left you feeling frustrated. Could you tell me more about your feelings?"
+        },
+        {
+            "role": "user",
+            "content": "Every time I bring this up, he refuses with various excuses. I really don't understand—doesn't he trust me?"
+        },
+        {
+            "role": "assistant",
+            "content": "Trust is a core element in a relationship. I can understand why you feel confused about this. When he refuses, has he explained his concerns or reasons to you?"
+        },
+        {
+            "role": "user",
+            "content": "He says that if he gives me his salary card, he would have to come to me for every deposit or withdrawal. This makes me feel very disappointed. I just want to better plan our future."
+        },
+        {
+            "role": "assistant",
+            "content": "You hope to plan for the future through joint financial management, which is a responsible attitude. It seems you and he have different views and feelings about financial management."
+        },
+        {
+            "role": "user",
+            "content": "Yes, I just want to contribute to our relationship. Why doesn't he understand me?"
+        },
+        {
+            "role": "assistant",
+            "content": "Your contribution comes from love and care. Perhaps he has his own considerations. What do you think might be on his mind?"
+        },
+        {
+            "role": "user",
+            "content": "I don't know. I asked him if he was afraid I would spend his money, and he said there isn't much for me to spend."
+        },
+        {
+            "role": "assistant",
+            "content": "His response doesn't seem to directly address your concerns. Does this kind of communication make you feel there are barriers between you two?"
+        },
+        {
+            "role": "user",
+            "content": "Yes, I feel very frustrated. When I bring it up, he always seems to avoid the topic, which makes me feel he doesn't care enough about me."
+        },
+        {
+            "role": "assistant",
+            "content": "It seems your feelings are complex—both persistent about financial management and confused and disappointed by your boyfriend's reactions."
+        },
+        {
+            "role": "user",
+            "content": "Exactly, that's how I feel. I really don't know what else I can do."
+        },
+        {
+            "role": "assistant",
+            "content": "You've invested a lot in this relationship. It's understandable to feel lost and unsure. Would you like to explore whether this issue might involve more than just money?"
+        },
+        {
+            "role": "user",
+            "content": "I'm not sure. Are you saying there might be other issues involved?"
+        },
+        {
+            "role": "assistant",
+            "content": "Yes, money often symbolizes emotional communication and trust. Does this issue make you feel that certain aspects of your relationship need to be strengthened?"
+        },
+        {
+            "role": "user",
+            "content": "Now that I think about it, maybe that's true. There might also be issues with communication and trust. We need to understand each other better."
+        },
+        {
+            "role": "assistant",
+            "content": "Understanding and trust are the cornerstones of a solid relationship. Perhaps you could consider sharing your feelings and concerns with your boyfriend openly and non-confrontationally."
+        },
+        {
+            "role": "user",
+            "content": "I've tried, but I always don't know how to bring it up. I'm afraid he'll think I'm blaming him."
+        },
+        {
+            "role": "assistant",
+            "content": "Expressing feelings can be challenging, especially when you're worried about the other person's reaction. Try focusing on expressing your feelings and needs rather than on the other person—it might help."
+        },
+        {
+            "role": "user",
+            "content": "I see. I could try saying, 'I feel a bit uneasy when we can't agree on financial matters because I care about our future.'"
+        },
+        {
+            "role": "assistant",
+            "content": "That sounds very balanced and full of concern for the future and genuine feelings about the current situation."
+        },
+        {
+            "role": "user",
+            "content": "I'll try that. But what if he still doesn't want to change? What should I do?"
+        },
+        {
+            "role": "assistant",
+            "content": "Regardless of the outcome, the key is that both of you can respect and understand each other's positions. Practically speaking, it might take time and more communication to reach a consensus."
+        },
+        {
+            "role": "user",
+            "content": "I hope we can make progress. Thank you for your advice—it's given me courage and direction."
+        },
+        {
+            "role": "assistant",
+            "content": "I'm glad to hear you found it helpful. Remember, I'm always here to support you. If you need further discussion, you're welcome anytime."
+        },
+        {
+            "role": "user",
+            "content": "Thank you so much. I'll talk to him properly and hope it brings some positive changes."
+        },
+        {
+            "role": "assistant",
+            "content": "That's a great step. Positive communication can open many doors that seemed closed before. I wish you a smooth conversation."
+        }
+    ]
+}
+```
+The topic distribution of PsyDTCorpus data is shown below:
+<p align="center">
+    <img src="./figure/topic_ratio.png" width=600px/>
+</p>
+
+## Model
+### Environment Setup
+Please refer to [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) and [《LLaMA-Factory QuickStart》](https://zhuanlan.zhihu.com/p/695287607) for environment setup.
+```bash
+conda create -n llama_factory python=3.10
+conda activate llama_factory
+cd ~
+git clone https://github.com/hiyouga/LLaMA-Factory.git
+cd LLaMA-Factory
+pip install -e '.[torch,metrics]'
+
+Other pip installation commands
+
+```
+
+### Key Packages and Hyperparameters
+We performed full-parameter fine-tuning on multiple base models. Key package dependencies for fine-tuning are as follows:
+- Transformers 4.43.0
+- Pytorch 2.3.0+cu121
+- Datasets 2.18.0
+- Tokenizers 0.19.1
+- Llama-Factory 0.8.3.dev0
+
+Hyperparameter configurations for fine-tuning are as follows:
+- learning_rate: 1e-05
+- train_batch_size: 2
+- eval_batch_size: 1
+- seed: 42
+- distributed_type: multi-GPU
+- num_devices: 8
+- total_train_batch_size: 16
+- total_eval_batch_size: 8
+- optimizer: Adam with betas=(0.9,0.999) and epsilon=1e-08
+- lr_scheduler_type: cosine
+- lr_scheduler_warmup_ratio: 0.03
+- num_epochs: 3.0
+- mixed_precision_training: Native AMP
+
+### Full-Parameter Fine-Tuning
+We provide configuration files for full-parameter fine-tuning of various base models to construct digital twin models for psychological counselors in [./train_model](./train_model). After installing [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory), users only need to download the dataset following the data download steps above, then download the base model parameters locally, and modify the ```model_name_or_path``` field in the corresponding .yaml file to the local absolute path of the base model parameters. Fine-tuning can then be performed with the following command:
+```bash
+cd <project path>
+conda activate llama_factory
+FORCE_TORCHRUN=1 llamafactory-cli train train_model/llama3.1_full_sft_ds3.yaml
+```
+
+Specifically, all our released digital twin models for psychological counselors were fine-tuned on an 8-card A800 server.
+
+### Open-Source Models
+To facilitate further research in the mental health dialogue research community, we plan to open-source a series of digital twin models for psychological counselors after full-parameter fine-tuning, as shown in the table below:
+
+| Model Name | Download Link | Base Model Link |
 |:------------|:----------:|:------------|
 | SoulChat2.0-Qwen2-7B    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Qwen2-7B) | [Qwen2-7B-Instruct](https://www.modelscope.cn/models/qwen/Qwen2-7B-Instruct) |
 | SoulChat2.0-internlm2-7b   | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-internlm2-7b) | [internlm2-chat-7b](https://www.modelscope.cn/models/Shanghai_AI_Laboratory/internlm2-chat-7b) |
@@ -31,12 +284,36 @@ In order to facilitate further research in the mental health dialogue research c
 | SoulChat2.0-Yi-1.5-9B    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Yi-1.5-9B) | [Yi-1.5-9B-Chat-16K](https://www.modelscope.cn/models/01ai/Yi-1.5-9B-Chat-16K) |
 | SoulChat2.0-glm-4-9b    | [download from modelscope](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-glm-4-9b) | [glm-4-9b-chat](https://www.modelscope.cn/models/ZhipuAI/glm-4-9b-chat) |
 
-## Model Inference
-Assuming the IP address of your server is 198.0.0.8
-### vllm inference
+* For model download methods, please refer to [《Model Download》](https://modelscope.cn/docs/%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%8B%E8%BD%BD)
+
+Below is a download example (using [SoulChat2.0-Llama-3.1-8B](https://modelscope.cn/models/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B) as an example):
+
+Method 1: python snapshot_download
+```bash
+# Install ModelScope
+pip install modelscope
+# SDK model download
+from modelscope import snapshot_download
+model_dir = snapshot_download('YIRONGCHEN/SoulChat2.0-Llama-3.1-8B')
+```
+Method 2: git-lfs download
+```bash
+cd <base model save path>
+git lfs install
+git clone https://www.modelscope.cn/YIRONGCHEN/SoulChat2.0-Llama-3.1-8B.git
+```
+Method 3: modelscope download command
+```bash
+cd <base model save path>
+modelscope download --model 'YIRONGCHEN/SoulChat2.0-Llama-3.1-8B' --include '*'
+```
+
+## Model Application
+Assuming your server IP is 198.0.0.8
+### vllm Inference
 ```bash
 SERVER_MODEL_NAME=SoulChat2.0-Llama-3.1-8B
-MODEL_NAME_OR_PATH=<local path>/SoulChat2.0-Llama-3.1-8B
+MODEL_NAME_OR_PATH=<local model path>/SoulChat2.0-Llama-3.1-8B
 GPU_MEMORY_UTILIZATION=0.8
 PORT=8001
 API_KEY=soulchat-rcEmrhVe6zWot67QkJSwqUnNI0EQxxFBMQSAXLtMNsD97PlyGQgjgjW-9jCdQD30
@@ -51,7 +328,7 @@ python -m vllm.entrypoints.openai.api_server \
     --max-model-len $MAX_MODEL_LEN
 ```
 
-### streamlit demo construction
+### streamlit Demo Setup
 ```bash
 pip install openai==1.7.1
 pip install streamlit==1.27.0
@@ -59,6 +336,16 @@ pip install streamlit_authenticator==0.3.1
 cd infer_demo
 streamlit run soulchat2.0_app.py --server.port 8002
 ```
+Access via http://<server ip>:8002.
+
+## Limitations
+- The open-source models in this project are fine-tuned based on open-source base models. When using the model weights, please comply with the corresponding base model licenses: [Baichuan 2](https://huggingface.co/baichuan-inc/Baichuan2-7B-Base/blob/main/Community%20License%20for%20Baichuan%202%20Model.pdf) / [Yi](https://huggingface.co/01-ai/Yi-6B/blob/main/LICENSE) / [Llama 3](https://llama.meta.com/llama3/license/) / [Qwen](https://github.com/QwenLM/Qwen/blob/main/Tongyi%20Qianwen%20LICENSE%20AGREEMENT) / [GLM-4](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE) / [InternLM2](https://github.com/InternLM/InternLM#license) 
+- The open-source models in this project are only fine-tuned with digital twin data for psychological counselors. For factual knowledge, they may produce incorrect responses, and their capabilities in coding and reasoning may decline. Please be aware of the model's scope of use.
+- Although our model has made significant progress in psychological counseling dialogue capabilities, there is still room for improvement in safety and professionalism. The model may sometimes provide unexpected responses. This model is for research purposes only, and users assume all medical risks associated with its use.
+
+## Acknowledgments
+- This project was initiated by the School of Future Technology, School of Electronic and Information Engineering, Guangdong Provincial Key Laboratory of Human Digital Twins, and Pazhou Lab at South China University of Technology. We sincerely thank all the laboratory teachers for their strong support.
+- This project is fine-tuned based on the [hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory) framework. We appreciate the efforts of the authors of this project.
 
 ## Citation
 ```bibtex
