@@ -339,6 +339,8 @@ streamlit run soulchat2.0_app.py --server.port 8002
 ```
 通过http://<服务器ip>:8002即可访问。
 
+！！！注意，进行模型推理时要加上系统提示词，具体的提示词内容参照数据集里的system_prompt！！！
+
 ## 限制声明
 - 本项目开源的模型基于开源基座模型微调得到，使用模型权重时，请遵循对应基座模型的模型协议：[Baichuan 2](https://huggingface.co/baichuan-inc/Baichuan2-7B-Base/blob/main/Community%20License%20for%20Baichuan%202%20Model.pdf) / [Yi](https://huggingface.co/01-ai/Yi-6B/blob/main/LICENSE) / [Llama 3](https://llama.meta.com/llama3/license/) / [Qwen](https://github.com/QwenLM/Qwen/blob/main/Tongyi%20Qianwen%20LICENSE%20AGREEMENT) / [GLM-4](https://huggingface.co/THUDM/glm-4-9b/blob/main/LICENSE) / [InternLM2](https://github.com/InternLM/InternLM#license) 
 - 本项目开源的模型仅经过心理咨询师数字孪生数据微调，对于事实性知识，容易产生错误的回复，在代码、推理上的能力可能会下降，请注意模型的使用范围。
