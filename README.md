@@ -355,7 +355,7 @@ streamlit run soulchat2.0_app.py --server.port 8002
 - 本项目基于[hiyouga/LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架微调得到，感谢该项目的诸位作者的付出。
 
 ## 引用
-```bibtex
+```bib
 @inproceedings{xie-etal-2025-psydt,
     title = "{P}sy{DT}: Using {LLM}s to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling",
     author = "Xie, Haojie  and
@@ -375,7 +375,10 @@ streamlit run soulchat2.0_app.py --server.port 8002
     url = "https://aclanthology.org/2025.acl-long.55/",
     pages = "1081--1115",
     ISBN = "979-8-89176-251-0",
-    abstract = "Currently, large language models (LLMs) have made significant progress in the field of psychological counseling. However, existing mental health LLMs overlook a critical issue where they do not consider the fact that different psychological counselors exhibit different personal styles, including linguistic style and therapy techniques, etc. As a result, these LLMs fail to satisfy the individual needs of clients who seek different counseling styles. To help bridge this gap, we propose PsyDT, a novel framework using LLMs to construct the Digital Twin of Psychological counselor with personalized counseling style. Compared to the time-consuming and costly approach of collecting a large number of real-world counseling cases to create a specific counselor{'}s digital twin, our framework offers a faster and more cost-effective solution. To construct PsyDT, we utilize dynamic one-shot learning by using GPT-4 to capture counselor{'}s unique counseling style, mainly focusing on linguistic style and therapy techniques. Subsequently, using existing single-turn long-text dialogues with client{'}s questions, GPT-4 is guided to synthesize multi-turn dialogues of specific counselor. Finally, we fine-tune the LLMs on the synthetic dataset, PsyDTCorpus, to achieve the digital twin of psychological counselor with personalized counseling style. Experimental results indicate that our proposed PsyDT framework can synthesize multi-turn dialogues that closely resemble real-world counseling cases and demonstrate better performance compared to other baselines, thereby show that our framework can effectively construct the digital twin of psychological counselor with a specific counseling style.",
-}
+    abstract = "Currently, large language models (LLMs) have made significant progress in the field of psychological counseling. However, existing mental health LLMs overlook a critical issue where they do not consider the fact that different psychological counselors exhibit different personal styles, including linguistic style and therapy techniques, etc. As a result, these LLMs fail to satisfy the individual needs of clients who seek different counseling styles. To help bridge this gap, we propose PsyDT, a novel framework using LLMs to construct the Digital Twin of Psychological counselor with personalized counseling style. Compared to the time-consuming and costly approach of collecting a large number of real-world counseling cases to create a specific counselor{'}s digital twin, our framework offers a faster and more cost-effective solution. To construct PsyDT, we utilize dynamic one-shot learning by using GPT-4 to capture counselor{'}s unique counseling style, mainly focusing on linguistic style and therapy techniques. Subsequently, using existing single-turn long-text dialogues with client{'}s questions, GPT-4 is guided to synthesize multi-turn dialogues of specific counselor. Finally, we fine-tune the LLMs on the synthetic dataset, PsyDTCorpus, to achieve the digital twin of psychological counselor with personalized counseling style. Experimental results indicate that our proposed PsyDT framework can synthesize multi-turn dialogues that closely resemble real-world counseling cases and demonstrate better performance compared to other baselines, thereby show that our framework can effectively construct the digital twin of psychological counselor with a specific counseling style."
 }
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=scutcyr/SoulChat2.0&type=Date)](https://www.star-history.com/#scutcyr/SoulChat2.0&Date)
