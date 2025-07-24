@@ -15,6 +15,7 @@
 \[ English | [中文](README.md) \]
 
 ## Recent Updates
+- 👏🏻 2025.07.24：Our paper has released on ACL 2025 Main. For details, please refer to [PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://aclanthology.org/2025.acl-long.55.pdf)
 - 👏🏻 2025.05.16: Congratulations! Our paper has been accepted by ACL 2025 Main Conference! 🎉
 - 👏🏻 2024.12.19: Welcome to check out our work: [PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling](https://arxiv.org/pdf/2412.13660)
 
@@ -374,3 +375,7 @@ Access via http://<server ip>:8002.
     abstract = "Currently, large language models (LLMs) have made significant progress in the field of psychological counseling. However, existing mental health LLMs overlook a critical issue where they do not consider the fact that different psychological counselors exhibit different personal styles, including linguistic style and therapy techniques, etc. As a result, these LLMs fail to satisfy the individual needs of clients who seek different counseling styles. To help bridge this gap, we propose PsyDT, a novel framework using LLMs to construct the Digital Twin of Psychological counselor with personalized counseling style. Compared to the time-consuming and costly approach of collecting a large number of real-world counseling cases to create a specific counselor{'}s digital twin, our framework offers a faster and more cost-effective solution. To construct PsyDT, we utilize dynamic one-shot learning by using GPT-4 to capture counselor{'}s unique counseling style, mainly focusing on linguistic style and therapy techniques. Subsequently, using existing single-turn long-text dialogues with client{'}s questions, GPT-4 is guided to synthesize multi-turn dialogues of specific counselor. Finally, we fine-tune the LLMs on the synthetic dataset, PsyDTCorpus, to achieve the digital twin of psychological counselor with personalized counseling style. Experimental results indicate that our proposed PsyDT framework can synthesize multi-turn dialogues that closely resemble real-world counseling cases and demonstrate better performance compared to other baselines, thereby show that our framework can effectively construct the digital twin of psychological counselor with a specific counseling style.",
 }
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=scutcyr/SoulChat2.0&type=Date)](https://www.star-history.com/#scutcyr/SoulChat2.0&Date)
