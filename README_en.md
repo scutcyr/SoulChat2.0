@@ -8,6 +8,9 @@
     <a href="https://github.com/scutcyr/SoulChat2.0/issues"><img src="https://img.shields.io/github/issues/scutcyr/SoulChat2.0?color=9cc"></a>
     <a href="https://github.com/scutcyr/SoulChat2.0/stargazers"><img src="https://img.shields.io/github/stars/scutcyr/SoulChat2.0?color=ccf"></a>
 </p>
+<p align="center">
+    <img src="./figure/PsyDT_poster.png" width=900px/>
+</p>
 
 \[ English | [中文](README.md) \]
 
@@ -349,13 +352,25 @@ Access via http://<server ip>:8002.
 
 ## Citation
 ```bibtex
-@misc{xie2024psydtusingllmsconstruct,
-      title={PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling}, 
-      author={Haojie Xie and Yirong Chen and Xiaofen Xing and Jingkai Lin and Xiangmin Xu},
-      year={2024},
-      eprint={2412.13660},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2412.13660}, 
+@inproceedings{xie-etal-2025-psydt,
+    title = "{P}sy{DT}: Using {LLM}s to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling",
+    author = "Xie, Haojie  and
+      Chen, Yirong  and
+      Xing, Xiaofen  and
+      Lin, Jingkai  and
+      Xu, Xiangmin",
+    editor = "Che, Wanxiang  and
+      Nabende, Joyce  and
+      Shutova, Ekaterina  and
+      Pilehvar, Mohammad Taher",
+    booktitle = "Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2025",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.acl-long.55/",
+    pages = "1081--1115",
+    ISBN = "979-8-89176-251-0",
+    abstract = "Currently, large language models (LLMs) have made significant progress in the field of psychological counseling. However, existing mental health LLMs overlook a critical issue where they do not consider the fact that different psychological counselors exhibit different personal styles, including linguistic style and therapy techniques, etc. As a result, these LLMs fail to satisfy the individual needs of clients who seek different counseling styles. To help bridge this gap, we propose PsyDT, a novel framework using LLMs to construct the Digital Twin of Psychological counselor with personalized counseling style. Compared to the time-consuming and costly approach of collecting a large number of real-world counseling cases to create a specific counselor{'}s digital twin, our framework offers a faster and more cost-effective solution. To construct PsyDT, we utilize dynamic one-shot learning by using GPT-4 to capture counselor{'}s unique counseling style, mainly focusing on linguistic style and therapy techniques. Subsequently, using existing single-turn long-text dialogues with client{'}s questions, GPT-4 is guided to synthesize multi-turn dialogues of specific counselor. Finally, we fine-tune the LLMs on the synthetic dataset, PsyDTCorpus, to achieve the digital twin of psychological counselor with personalized counseling style. Experimental results indicate that our proposed PsyDT framework can synthesize multi-turn dialogues that closely resemble real-world counseling cases and demonstrate better performance compared to other baselines, thereby show that our framework can effectively construct the digital twin of psychological counselor with a specific counseling style.",
 }
 ```
