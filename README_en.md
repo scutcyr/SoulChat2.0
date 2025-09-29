@@ -1,4 +1,4 @@
-# [Psychological Counselor's Digital Twin(SoulChat2.0)](https://github.com/scutcyr/SoulChat2.0)
+# [ACL 2025 Main] PsyDT: Using LLMs to Construct the Digital Twin of Psychological Counselor with Personalized Counseling Style for Psychological Counseling
 <p align="center">
     <a href="https://arxiv.org/pdf/2412.13660"><img src="https://img.shields.io/badge/Paper-PDF-red.svg"></a>
     <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg"></a>
